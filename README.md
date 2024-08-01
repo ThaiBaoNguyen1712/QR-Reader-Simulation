@@ -14,7 +14,7 @@ Phần mềm này giả lập một dây chuyền sản xuất với hệ thốn
 ## Công nghệ sử dụng
 
 - 📷 AForge.Video.DirectShow: Xử lý hình ảnh từ camera
-- 📱 Droid: Giả lập máy quét QR
+- 📱 DroidCam: Giả lập máy quét QR
 - 🔍 ZXing.Net: Đọc và giải mã QR Code
 - 🖨️ QRCoder: Tạo mã QR
 
