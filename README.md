@@ -9,7 +9,7 @@ Phần mềm này giả lập một dây chuyền sản xuất với hệ thốn
 - 🎥 Sử dụng camera để quét và đọc mã QR
 - 📊 Quản lý mã QR theo thương hiệu
 - 🔄 Mô phỏng quá trình kiểm tra và loại bỏ sản phẩm
-- 📱 Tích hợp với phần mềm Droid để giả lập máy quét QR
+- 📱 Tích hợp với phần mềm DroidCam (https://www.dev47apps.com/) để giả lập máy quét QR
 
 ## Công nghệ sử dụng
 
