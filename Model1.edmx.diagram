@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="59f8b3cb8e90495697436a8b6cb8a386" Name="Diagram1">
+        <EntityTypeShape EntityType="ReadQRModel.Code_history" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReadQRModel.Reader" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="ReadQRModel.FK_Code_Reader" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ReadQRModel.Brand_Code" Width="1.5" PointX="0.75" PointY="1.25" />
+        <AssociationConnector Association="ReadQRModel.FK_Code_Brand" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ReadQRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brand_Code">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Code_history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Brand_Id" Type="int" />
+          <Property Name="Reader_Id" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Code_Brand">
+          <End Role="Brand_Code" Type="Self.Brand_Code" Multiplicity="0..1" />
+          <End Role="Code_history" Type="Self.Code_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand_Code">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Code_history">
+              <PropertyRef Name="Brand_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Code_Reader">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="0..1" />
+          <End Role="Code_history" Type="Self.Code_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Code_history">
+              <PropertyRef Name="Reader_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReadQRModelStoreContainer">
+          <EntitySet Name="Brand_Code" EntityType="Self.Brand_Code" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Code_history" EntityType="Self.Code_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Code_Brand" Association="Self.FK_Code_Brand">
+            <End Role="Brand_Code" EntitySet="Brand_Code" />
+            <End Role="Code_history" EntitySet="Code_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Code_Reader" Association="Self.FK_Code_Reader">
+            <End Role="Reader" EntitySet="Reader" />
+            <End Role="Code_history" EntitySet="Code_history" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReadQRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Code_history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Brand_Id" Type="Int32" />
+          <Property Name="Reader_Id" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Reader" Relationship="Self.FK_Code_Reader" FromRole="Code_history" ToRole="Reader" />
+          <NavigationProperty Name="Brand_Code" Relationship="ReadQRModel.FK_Code_Brand" FromRole="Code_history" ToRole="Brand_Code" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Code_history" Relationship="Self.FK_Code_Reader" FromRole="Reader" ToRole="Code_history" />
+        </EntityType>
+        <Association Name="FK_Code_Reader">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="0..1" />
+          <End Role="Code_history" Type="Self.Code_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Code_history">
+              <PropertyRef Name="Reader_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReadQREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Code_history" EntityType="Self.Code_history" />
+          <EntitySet Name="Readers" EntityType="Self.Reader" />
+          <AssociationSet Name="FK_Code_Reader" Association="Self.FK_Code_Reader">
+            <End Role="Reader" EntitySet="Readers" />
+            <End Role="Code_history" EntitySet="Code_history" />
+          </AssociationSet>
+          <EntitySet Name="Brand_Code" EntityType="ReadQRModel.Brand_Code" />
+          <AssociationSet Name="FK_Code_Brand" Association="ReadQRModel.FK_Code_Brand">
+            <End Role="Brand_Code" EntitySet="Brand_Code" />
+            <End Role="Code_history" EntitySet="Code_history" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Brand_Code">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Code_history" Relationship="ReadQRModel.FK_Code_Brand" FromRole="Brand_Code" ToRole="Code_history" />
+        </EntityType>
+        <Association Name="FK_Code_Brand">
+          <End Type="ReadQRModel.Brand_Code" Role="Brand_Code" Multiplicity="0..1" />
+          <End Type="ReadQRModel.Code_history" Role="Code_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand_Code">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Code_history">
+              <PropertyRef Name="Brand_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReadQRModelStoreContainer" CdmEntityContainer="ReadQREntities">
+          <EntitySetMapping Name="Code_history">
+            <EntityTypeMapping TypeName="ReadQRModel.Code_history">
+              <MappingFragment StoreEntitySet="Code_history">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Brand_Id" ColumnName="Brand_Id" />
+                <ScalarProperty Name="Reader_Id" ColumnName="Reader_Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Readers">
+            <EntityTypeMapping TypeName="ReadQRModel.Reader">
+              <MappingFragment StoreEntitySet="Reader">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brand_Code">
+            <EntityTypeMapping TypeName="ReadQRModel.Brand_Code">
+              <MappingFragment StoreEntitySet="Brand_Code">
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
