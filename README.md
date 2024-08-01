@@ -33,6 +33,8 @@ Dự án bao gồm các form chính sau:
 ```sql
 CREATE DATABASE QRReader
 GO
+USE QRReader
+GO
 CREATE TABLE [dbo].[Brand_Code](
     [Id] [int] IDENTITY(1,1) NOT NULL,
     [Name] [nvarchar](50) NULL,
